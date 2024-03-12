@@ -6,22 +6,25 @@
     </div>
 
     <div class="filters">
-        <button>Todos</button>
-        <button>Activos</button>
-        <button>Completados</button>
+        <button (click)="changeFilter('all')" [class.active]="filter() === 'all'">Todos</button>
+        <button (click)="changeFilter('active')" [class.active]="filter() === 'active'">Activos</button>
+        <button (click)="changeFilter('completed')" [class.active]="filter() === 'completed'">Completados</button>
     </div>
 
-
     <ul class="todolist">
-        <li class="todo">
-            <input type="checkbox">
-            <label>Titulo de tarea</label>
-            <button>Editar</button>
-            <button>Eliminar</button>
-        </li>
-
-        <li class="todo-editing">
-            <input type="text" placeholder="Editar tarea">
-        </li>
+        @for (todo of todolist(); track todo.id) {
+            @if (todo.editing) {
+                <li class="todo-editing">
+                    <input type="text" placeholder="Editar tarea">
+                </li>
+            } @else {
+                <li class="todo">
+                    <input type="checkbox">
+                    <label>Titulo de tarea</label>
+                    <button>Editar</button>
+                    <button>Eliminar</button>
+                </li>
+            }
+        }
     </ul>
 </section>
